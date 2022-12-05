@@ -9,7 +9,7 @@ class md4
 private:
     void changeEndian(uint32_t number, uint8_t* buffer);
     uint32_t changeEndiancp(uint8_t* buffer);
-    uint32_t alg(uint32_t* M);
+    std::string alg(uint32_t** M, uint64_t cntBlock);
     uint32_t f(int iter, uint32_t x,uint32_t y,uint32_t z);
     uint32_t K(int iter);
     uint32_t s[48]={
@@ -35,7 +35,7 @@ private:
 
 public:
     md4();
-    md4(const char* filename);
+    std::string md4_use(const char* filename);
     ~md4();
 };
 
