@@ -1,7 +1,2 @@
-*/*
-!*.cpp
-!*.hpp
-!*.py
-!*.txt
-!.gitignore
-test.cpp
+*/*.ini
+*/.vscode
