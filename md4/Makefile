@@ -12,7 +12,7 @@ wintest:
 unixtest:
 	g++ ./main.cpp ./md4.cpp -o md4.exe
 	./md4.exe test.txt
-	@echo. 
+	@echo "" 
 	openssl dgst -md4 -hex test.txt
 help: 
 	@echo make 			- just build md4.exe
