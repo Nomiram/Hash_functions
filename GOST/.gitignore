@@ -1,0 +1,8 @@
+*
+!*.cpp
+!*.hpp
+!*.py
+!*.txt
+!.gitignore
+test.cpp
+!Makefile
