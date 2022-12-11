@@ -52,9 +52,6 @@ uint32_t SHA1::changeEndiancp(uint8_t* buffer)
     number |= number|(((uint32_t(buffer[1])) << 16));
     return number;
 }
-uint32_t endiannessFix(uint32_t value){
-    return(((value & 0xff) << 24) | ((value & 0xff00) << 8) | ((value & 0xff0000) >> 8) | ((value & 0xff000000) >> 24));
-}
 std::string SHA1::sha1_use(const char* filename)
 {
     bool paddingBlock = false;
@@ -177,7 +174,7 @@ std::string SHA1::alg(uint32_t** M, uint64_t cntBlock){
         
         //rounds
         for (int i = 0; i < ROUNDS; i++){
-            t = rotl32(a,5) + f(i,b,c,d) + e + (W[i])+(K(i));//%endiannessFix((_2POW32));
+            t = rotl32(a,5) + f(i,b,c,d) + e + (W[i])+(K(i));
             e=d;
             d=c;
             c= rotl32(b,30);
