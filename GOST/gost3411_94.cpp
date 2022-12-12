@@ -9,31 +9,31 @@
 #define BLOCKSIZE 32
 
 
-gost341194::gost341194()
+GOST341194::GOST341194()
 {
     return;
 }
 
-gost341194::~gost341194()
+GOST341194::~GOST341194()
 {
     return;
 }
 
-void gost341194::A(byte Y[], byte R[]) {
+void GOST341194::A(byte Y[], byte R[]) {
   for (int i = 0; i < 24; i++) R[i] = Y[i + 8];
   for (int i = 0; i < 8; i++) R[i + 24] = Y[i] ^ Y[i + 8];
 }
 
-int gost341194::fi(int arg) {
+int GOST341194::fi(int arg) {
   int i = arg & 0x03;
   int k = arg >> 2; k++;
   return (i << 3) + k - 1;
 }
-void gost341194::P(byte Y[], byte R[]) {
+void GOST341194::P(byte Y[], byte R[]) {
   for (int i = 0; i < BLOCKSIZE; i++) R[i] = Y[fi(i)];
 }
 
-void gost341194::psi(byte arr[]) {
+void GOST341194::psi(byte arr[]) {
   byte y16[] = {0, 0};
   y16[0] ^= arr[ 0]; y16[1] ^= arr[ 1];
   y16[0] ^= arr[ 2]; y16[1] ^= arr[ 3];
@@ -44,12 +44,12 @@ void gost341194::psi(byte arr[]) {
   for (int i = 0; i < 30; i++) arr[i] = arr[i + 2];
   arr[30] = y16[0]; arr[31] = y16[1];
 }
-void gost341194::psi(byte arr[], int p) {
+void GOST341194::psi(byte arr[], int p) {
   while (p--) psi(arr);
 }
 
-void gost341194::f(byte H[], byte M[], byte newH[]) {
-  gost28147_89 sh;
+void GOST341194::f(byte H[], byte M[], byte newH[]) {
+  GOST28147_89 sh;
   Block C[4];
   memset(C, 0, sizeof C);
   for(int i=0;i<BLOCKSIZE;i++){
@@ -68,7 +68,7 @@ void gost341194::f(byte H[], byte M[], byte newH[]) {
     for (int i = 0; i < BLOCKSIZE; i++) W[i] = U[i] ^ V[i];
     P(W, K[step]);
   }
-  //Enc by gost28147_89
+  //Enc by GOST28147_89
   Block S;
   for (int i = 0; i < BLOCKSIZE; i += 8)
     sh.E(H + i, K[i >> 3], S + i);
@@ -82,7 +82,7 @@ void gost341194::f(byte H[], byte M[], byte newH[]) {
   memcpy(newH, S, sizeof S);
 }
 
-std::string gost341194::hash(byte buf[], int len) {
+std::string GOST341194::hash(byte buf[], int len) {
   Block block, Sum, L, H, newH;
   int pos = 0;
   int cnt = 0;
@@ -131,5 +131,4 @@ std::string gost341194::hash(byte buf[], int len) {
     << std::setw(2)<< int(result[i]);
   
   return res.str();
-
 }

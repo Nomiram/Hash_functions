@@ -2,14 +2,11 @@
 #define __CLASS_gost341194
 typedef unsigned char byte; 
 #define BLOCKSIZE 32
-typedef byte Block[BLOCKSIZE]; // Block - массив из 32х байтов (256 бит)
-typedef byte Block32[4]; // Block32 - массив из 4х байтов (32 бита)
-class gost341194
+typedef byte Block[BLOCKSIZE]; // Block - (256 b)
+typedef byte Block32[4]; // Block32 - (32 b)
+class GOST341194
 {
 private:
-
-    // GOST R 34.11-94
-
     // Plaseholder to C[2]
     Block  C_2 = {
     0x00,  0xFF,  0x00,  0xFF,
@@ -28,10 +25,8 @@ private:
     void P(byte Y[], byte R[]);
     void A(byte Y[], byte R[]);
 public:
-    gost341194();
+    GOST341194();
     std::string hash(unsigned char buf[], int len);
-    ~gost341194();
+    ~GOST341194();
 };
-
-// void hash(unsigned char buf[], int len, unsigned char result[]);
 #endif

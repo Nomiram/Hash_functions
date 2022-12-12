@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
 
         if(argc > 1){
         std::cout << "file: " << argv[1] << std::endl;
-        gost341194 hash = gost341194();
+        GOST341194 hash = GOST341194();
         unsigned int start_time =  clock();
         unsigned char buf[10240]; 
         int len = 0;
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
     }
     else{
         std::cout << "Usage: " << std::endl;
-        std::cout << "gost.exe <filename>" << std::endl;
+        std::cout << "./gost.exe <filename>" << std::endl;
     }
     return 0;
 }

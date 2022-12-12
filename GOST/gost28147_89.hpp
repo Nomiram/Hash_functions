@@ -2,12 +2,11 @@
 #define __CLASS_gost28147_89
 typedef unsigned char byte; 
 #define BLOCKSIZE 32
-typedef byte Block[BLOCKSIZE]; // Block - массив из 32х байтов (256 бит)
-typedef byte Block32[4]; // Block32 - массив из 4х байтов (32 бита)
-// ГОСТ 28147-89
+typedef byte Block[BLOCKSIZE]; // Block - (256 b)
+typedef byte Block32[4]; // Block32 - (32 b)
 
 
-class gost28147_89
+class GOST28147_89
 {
 private:
     byte S[8][16] = { // S-block - TEST
@@ -23,8 +22,8 @@ private:
 public:
     void E_f(byte A[], byte K[], byte R[]);
     void E(byte  D[], byte K[], byte R[]);
-    gost28147_89();
-    ~gost28147_89();
+    GOST28147_89();
+    ~GOST28147_89();
 };
 
 #endif
