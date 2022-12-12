@@ -26,6 +26,6 @@ int main(int argc, char* argv[])
     }
     else{
         std::cout << "Usage: " << std::endl;
-        std::cout << "md4.exe <filename>" << std::endl;
+        std::cout << "SHA1.exe <filename>" << std::endl;
     }
 }
