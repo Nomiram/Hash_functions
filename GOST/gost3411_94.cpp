@@ -55,7 +55,9 @@ void GOST341194::f(byte H[], byte M[], byte newH[]) {
   for(int i=0;i<BLOCKSIZE;i++){
     C[2][i]=C_2[i];
   }
+  // Генерируются ключи шифрования
 
+  // Внутренние переменные 
   Block U, V, W, K[4], tmp;
   memcpy(U, H, sizeof U);
   memcpy(V, M, sizeof V);
@@ -63,8 +65,11 @@ void GOST341194::f(byte H[], byte M[], byte newH[]) {
   P(W, K[0]);
 
   for (int step = 1; step < 4; step++) {
-    A(U, tmp); for (int i = 0; i < BLOCKSIZE; i++) U[i] = tmp[i] ^ C[step][i];
-    A(V, tmp); A(tmp, V);
+    A(U, tmp); 
+    for (int i = 0; i < BLOCKSIZE; i++) U[i] = tmp[i] ^ C[step][i];
+    // А(А(V))
+    A(V, tmp); 
+    A(tmp, V);
     for (int i = 0; i < BLOCKSIZE; i++) W[i] = U[i] ^ V[i];
     P(W, K[step]);
   }
@@ -83,13 +88,16 @@ void GOST341194::f(byte H[], byte M[], byte newH[]) {
 }
 
 std::string GOST341194::hash(byte buf[], int len) {
+  //Первый этап:
+  // Инициализация внутреннего состояния алгоритма
   Block block, Sum, L, H, newH;
   int pos = 0;
   int cnt = 0;
 
   memset(Sum, 0, sizeof Sum);
   memset(H, 0, sizeof H);
-
+  // Второй этап
+  // Сообщение разбивается на блоки по 256 бит путем разбиения входного сообщения
   while ((cnt < len) || pos) {
     if (cnt < len) {
       block[pos] = buf[cnt];
